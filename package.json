@@ -2,6 +2,7 @@
   "name": "vscode-smcpeak",
   "displayName": "vscode-smcpeak",
   "description": "Scott McPeak VSCode Extensions",
+  "publisher": "smcpeak",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.36.0"
@@ -32,7 +33,7 @@
     "@types/glob": "^7.1.1",
     "@types/mocha": "^5.2.6",
     "@types/node": "^10.12.21",
-    "@types/vscode": "^1.37.0",
+    "@types/vscode": "^1.36.0",
     "glob": "^7.1.4",
     "mocha": "^6.1.4",
     "typescript": "^3.3.1",
