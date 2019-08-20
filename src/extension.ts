@@ -23,6 +23,84 @@ function currentDateTime() : string {
          ":" + dd(d.getMinutes());
 }
 
+function spaces(n: number) : string
+{
+  var ret = "";
+  for (var i=0; i<n; i++) {
+    ret += " ";
+  }
+  return ret;
+}
+
+function inOrOutdentRigidly(
+  textEditor: vscode.TextEditor,
+  edit: vscode.TextEditorEdit,
+  amount: number)
+{
+  const s = textEditor.selection;
+  if (s.isEmpty) {
+    if (amount > 0) {
+      // Insert a tab character.
+      edit.insert(s.active, "\t");
+    }
+    else {
+      // Do nothing.
+    }
+    return;
+  }
+
+  // Current selected text, expanded to include the beginning of the
+  // start line.
+  const range = new vscode.Range(
+    new vscode.Position(s.start.line, 0),
+    new vscode.Position(s.end.line, s.end.character));
+
+  const oldText = textEditor.document.getText(range);
+  const lines = oldText.split(/\r?\n/);
+  const eol = textEditor.document.eol === vscode.EndOfLine.LF? "\n" : "\r\n";
+
+  // Build replacement text one line at a time.
+  var newText = "";
+  for (var n=0; n < lines.length; n++) {
+    const line = lines[n];
+
+    // Only in/outdent lines that are not empty.
+    if (line !== "") {
+      if (amount > 0) {
+        newText += spaces(amount) + line;
+      }
+      else {
+        // Replace up to -amount leading spaces.
+        const newLine = line.replace(
+          new RegExp("^[ ]{0," + (-amount) + "}"), "");
+        newText += newLine;
+      }
+
+      // The last element of the array was not followed by a
+      // newline, so do not add one back in.
+      if (n < lines.length - 1) {
+        newText += eol;
+      }
+    }
+  }
+
+  edit.replace(range, newText);
+}
+
+function indentRigidly(
+  textEditor: vscode.TextEditor,
+  edit: vscode.TextEditorEdit)
+{
+  inOrOutdentRigidly(textEditor, edit, +2);
+}
+
+function outdentRigidly(
+  textEditor: vscode.TextEditor,
+  edit: vscode.TextEditorEdit)
+{
+  inOrOutdentRigidly(textEditor, edit, -2);
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -40,6 +118,14 @@ export function activate(context: vscode.ExtensionContext) {
       edit.insert(textEditor.selection.active, currentDateTime());
     });
   context.subscriptions.push(disposable);
+
+  context.subscriptions.push(
+    vscode.commands.registerTextEditorCommand(
+      'smcpeak.indentRigidly', indentRigidly));
+
+  context.subscriptions.push(
+    vscode.commands.registerTextEditorCommand(
+      'smcpeak.outdentRigidly', outdentRigidly));
 }
 
 // this method is called when your extension is deactivated

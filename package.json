@@ -3,7 +3,7 @@
   "displayName": "vscode-smcpeak",
   "description": "Scott McPeak VSCode Extensions",
   "publisher": "smcpeak",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.36.0"
   },
@@ -11,7 +11,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:smcpeak.insertDateTime"
+    "onCommand:smcpeak.insertDateTime",
+    "onCommand:smcpeak.indentRigidly",
+    "onCommand:smcpeak.outdentRigidly"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -19,6 +21,14 @@
       {
         "command": "smcpeak.insertDateTime",
         "title": "Insert Date/Time"
+      },
+      {
+        "command": "smcpeak.indentRigidly",
+        "title": "Indent Selection Rigidly"
+      },
+      {
+        "command": "smcpeak.outdentRigidly",
+        "title": "Outdent Selection Rigidly"
       }
     ]
   },
