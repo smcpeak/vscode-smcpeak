@@ -10,13 +10,13 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.insertDateTime"
+    "onCommand:smcpeak.insertDateTime"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "extension.insertDateTime",
+        "command": "smcpeak.insertDateTime",
         "title": "Insert Date/Time"
       }
     ]

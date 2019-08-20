@@ -26,7 +26,16 @@ function currentDateTime() : string {
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerTextEditorCommand('extension.insertDateTime',
+  // To bind this to a key:
+  //  * Settings (lower-left gear) -> Keyboard Shortcuts
+  //  * Switch to JSON mode (brace pair in top right)
+  //  * Insert the following JSON:
+  //      {
+  //        "key": "ctrl+shift+d",
+  //        "command": "smcpeak.insertDateTime",
+  //        "when": "editorTextFocus"
+  //      },
+  let disposable = vscode.commands.registerTextEditorCommand('smcpeak.insertDateTime',
     (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
       edit.insert(textEditor.selection.active, currentDateTime());
     });
