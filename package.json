@@ -3,7 +3,7 @@
   "displayName": "vscode-smcpeak",
   "description": "Scott McPeak VSCode Extensions",
   "publisher": "smcpeak",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.36.0"
   },
