@@ -11,3 +11,7 @@
 ## 0.0.4
 
 - Add indentRigidly and outdentRigidly.
+
+## 0.0.5
+
+- Fix in/outdent deleting blank lines.
