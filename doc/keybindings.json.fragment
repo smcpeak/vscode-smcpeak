@@ -1,0 +1,15 @@
+    {
+        "key": "tab",
+        "command": "smcpeak.indentRigidly",
+        "when": "editorTextFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "shift+tab",
+        "command": "smcpeak.outdentRigidly",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "smcpeak.insertDateTime",
+        "when": "editorTextFocus"
+    },

@@ -42,6 +42,10 @@ function inOrOutdentRigidly(
     if (amount > 0) {
       // Insert a tab character.
       edit.insert(s.active, "\t");
+
+      // This would run the original vscode Tab function, which
+      // inserts spaces if that is how indentation is configured.
+      //vscode.commands.executeCommand("tab");
     }
     else {
       // Do nothing.
@@ -107,12 +111,7 @@ export function activate(context: vscode.ExtensionContext) {
   // To bind this to a key:
   //  * Settings (lower-left gear) -> Keyboard Shortcuts
   //  * Switch to JSON mode (brace pair in top right)
-  //  * Insert the following JSON:
-  //      {
-  //        "key": "ctrl+shift+d",
-  //        "command": "smcpeak.insertDateTime",
-  //        "when": "editorTextFocus"
-  //      },
+  //  * Insert the JSON in doc/keybindings.json.fragment
   let disposable = vscode.commands.registerTextEditorCommand('smcpeak.insertDateTime',
     (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
       edit.insert(textEditor.selection.active, currentDateTime());
