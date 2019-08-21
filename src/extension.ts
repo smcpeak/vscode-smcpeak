@@ -75,12 +75,12 @@ function inOrOutdentRigidly(
           new RegExp("^[ ]{0," + (-amount) + "}"), "");
         newText += newLine;
       }
+    }
 
-      // The last element of the array was not followed by a
-      // newline, so do not add one back in.
-      if (n < lines.length - 1) {
-        newText += eol;
-      }
+    // The last element of the array was not followed by a
+    // newline, so do not add one back in.
+    if (n < lines.length - 1) {
+      newText += eol;
     }
   }
 
