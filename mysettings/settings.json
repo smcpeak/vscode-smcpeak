@@ -1,0 +1,11 @@
+{
+    "workbench.colorTheme": "Visual Studio Light",
+    "window.zoomLevel": 1,
+    "editor.quickSuggestionsDelay": 99999999,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.tabSize": 2,
+    "update.mode": "none",
+    "javascript.suggestionActions.enabled": false
+}
