@@ -13,3 +13,42 @@
         "command": "smcpeak.insertDateTime",
         "when": "editorTextFocus"
     },
+    {
+        "key": "ctrl+a",
+        "command": "smcpeak.cursorHome",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "home",
+        "command": "smcpeak.cursorHome",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+a",
+        "command": "-editor.action.selectAll",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "cursorEnd",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "smcpeak.cursorHomeSelect",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "shift+home",
+        "command": "smcpeak.cursorHomeSelect",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "cursorEndSelect",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-workbench.view.explorer"
+    },

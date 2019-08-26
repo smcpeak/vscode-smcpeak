@@ -2,8 +2,9 @@
   "name": "vscode-smcpeak",
   "displayName": "vscode-smcpeak",
   "description": "Scott McPeak VSCode Extensions",
+  "repository": "https://github.com/smcpeak/vscode-smcpeak",
   "publisher": "smcpeak",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "engines": {
     "vscode": "^1.36.0"
   },
@@ -11,6 +12,8 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:smcpeak.cursorHome",
+    "onCommand:smcpeak.cursorHomeSelect",
     "onCommand:smcpeak.insertDateTime",
     "onCommand:smcpeak.indentRigidly",
     "onCommand:smcpeak.outdentRigidly"
@@ -18,6 +21,14 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "smcpeak.cursorHome",
+        "title": "Cursor to true beginning of line (column 1)"
+      },
+      {
+        "command": "smcpeak.cursorHomeSelect",
+        "title": "Cursor and selection to true beginning of line"
+      },
       {
         "command": "smcpeak.insertDateTime",
         "title": "Insert Date/Time"

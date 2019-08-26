@@ -23,6 +23,13 @@ function currentDateTime() : string {
          ":" + dd(d.getMinutes());
 }
 
+function insertDateTime(
+  textEditor: vscode.TextEditor,
+  edit: vscode.TextEditorEdit)
+{
+  edit.insert(textEditor.selection.active, currentDateTime());
+}
+
 function spaces(n: number) : string
 {
   var ret = "";
@@ -105,26 +112,51 @@ function outdentRigidly(
   inOrOutdentRigidly(textEditor, edit, -2);
 }
 
+// Move the cursor to the start of the line, regardless of leading
+// whitespace.
+function cursorHome(select: boolean)
+  : (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => void
+{
+  function actualCommand(
+    textEditor: vscode.TextEditor,
+    edit: vscode.TextEditorEdit) : void
+  {
+    // Based on: https://github.com/Bill-Stewart/vscode-extended-cursormove
+    vscode.commands.executeCommand("cursorMove", {
+      to: "wrappedLineStart",
+      by: "line",
+      select: select,
+      value: 1
+    });
+  }
+
+  return actualCommand;
+}
+
+// Register a text editor command.
+function registerTEC(
+  context: vscode.ExtensionContext,
+  command: string,
+  callback: (textEditor: vscode.TextEditor,
+             edit: vscode.TextEditorEdit, ...args: any[]) => void)
+{
+  context.subscriptions.push(
+    vscode.commands.registerTextEditorCommand(command, callback));
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // To bind this to a key:
+  // To bind these to keys:
   //  * Settings (lower-left gear) -> Keyboard Shortcuts
   //  * Switch to JSON mode (brace pair in top right)
   //  * Insert the JSON in doc/keybindings.json.fragment
-  let disposable = vscode.commands.registerTextEditorCommand('smcpeak.insertDateTime',
-    (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
-      edit.insert(textEditor.selection.active, currentDateTime());
-    });
-  context.subscriptions.push(disposable);
 
-  context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand(
-      'smcpeak.indentRigidly', indentRigidly));
-
-  context.subscriptions.push(
-    vscode.commands.registerTextEditorCommand(
-      'smcpeak.outdentRigidly', outdentRigidly));
+  registerTEC(context, 'smcpeak.cursorHome', cursorHome(false));
+  registerTEC(context, 'smcpeak.cursorHomeSelect', cursorHome(true));
+  registerTEC(context, 'smcpeak.insertDateTime', insertDateTime);
+  registerTEC(context, 'smcpeak.indentRigidly', indentRigidly);
+  registerTEC(context, 'smcpeak.outdentRigidly', outdentRigidly);
 }
 
 // this method is called when your extension is deactivated
