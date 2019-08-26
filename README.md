@@ -7,5 +7,4 @@ These are my vscode extensions.
 smcpeak.insertDateTime: Insert date/time as YYYY-MM-DD HH:SS into editor.
 
 indentRigidly, outdentRigidly: In/outdent without breaking spacing.  See:
-
-  https://github.com/Microsoft/vscode/issues/63388
+https://github.com/Microsoft/vscode/issues/63388
