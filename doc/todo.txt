@@ -4,3 +4,11 @@ TODO:
     - https://github.com/Microsoft/vscode/issues/46504
     - https://stackoverflow.com/questions/57158475/disable-search-wrap-in-vs-code
   - figure out how to package keybindings with the extension
+  - show whitespace characters nicely
+  - left and right movement should not wrap to next/prev line
+  - port my file picker or find an extension to do so?
+  - explore color customization options
+    - maybe whitespace highlight color and opacity can be configured?
+    - no, and it is complicated...
+  - find a way to make indentation amount and displayed tab width different
+  - extension that can allow cursor to be anywhere?
