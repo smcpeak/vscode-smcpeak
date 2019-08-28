@@ -52,9 +52,9 @@
       "title": "smcpeak",
       "properties": {
         "smcpeak.justifyWrapColumn": {
-            "type": "number",
-            "default": 72,
-            "description": "Number of columns at which to wrap justified paragraphs."
+          "type": "number",
+          "default": 72,
+          "description": "Number of columns at which to wrap justified paragraphs."
         }
       }
     }
