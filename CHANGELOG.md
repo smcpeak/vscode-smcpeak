@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.6
+
+- Add justifyParagraph.
+
 ## 0.0.5
 
 - Fix in/outdent deleting blank lines.

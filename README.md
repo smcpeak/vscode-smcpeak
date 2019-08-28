@@ -12,6 +12,12 @@ New commands in the "smcpeak" namespace:
   https://github.com/Microsoft/vscode/issues/63388
 
 * cursorHome, cursorHomeSelect: Move to true start of line (not first non-whitespace).
+  Based on
+  [Extended Cursor Movements](https://marketplace.visualstudio.com/items?itemName=BillStewart.extended-cursormove).
+
+* justifyParagraph: Fill/justify paragraph of text, comments, etc.
+  Similar to
+  [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap).
 
 ## Installation
 

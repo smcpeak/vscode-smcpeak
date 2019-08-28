@@ -52,3 +52,12 @@
         "key": "ctrl+shift+e",
         "command": "-workbench.view.explorer"
     },
+    {
+        "key": "ctrl+j",
+        "command": "smcpeak.justifyParagraph",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "-workbench.action.togglePanel"
+    },
