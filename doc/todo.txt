@@ -3,3 +3,4 @@ TODO:
   - add command or option to not cycle the search/find around end of file
     - https://github.com/Microsoft/vscode/issues/46504
     - https://stackoverflow.com/questions/57158475/disable-search-wrap-in-vs-code
+  - figure out how to package keybindings with the extension
