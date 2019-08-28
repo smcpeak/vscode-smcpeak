@@ -140,8 +140,11 @@ function cursorHome(select: boolean)
 function justifyParagraph(textEditor: vscode.TextEditor,
   editBuilder: vscode.TextEditorEdit) : void
 {
+  let config = vscode.workspace.getConfiguration("smcpeak");
+  let width: number = config.get("justifyWrapColumn", 72);
+
   let curLine: number = textEditor.selection.active.line;
-  justifyNearLine(textEditor, editBuilder, curLine, 72 /*width*/);
+  justifyNearLine(textEditor, editBuilder, curLine, width);
 }
 
 // Register a text editor command.
