@@ -1,11 +1,12 @@
-// justify.ts
-// Text justification routines.
+/** justify.ts
+  * Text justification routines.
+  *
+  * This is a port of part of the C++ 'editor/justify' module, namely
+  * part that does not depend on any VSCode objects. */
 
-// This is a port of the C++ 'editor/justify' module.
 
-
-// Return true if 'subject' is 'prefix' plus some non-empty suffix.
-function properStartsWith(subject: string, prefix: string) : boolean
+/** Return true if 'subject' is 'prefix' plus some non-empty suffix. */
+export function properStartsWith(subject: string, prefix: string) : boolean
 {
   if (subject.length <= prefix.length) {
     return false;
@@ -15,30 +16,30 @@ function properStartsWith(subject: string, prefix: string) : boolean
 }
 
 
-// Return true if 'c' is punctuation normally found at the end of a
-// sentence.  When we have to synthesize space between words, rather
-// than copying it, this will determine whether we insert one space or
-// two.
-//
-// 'c' is supposed to be a string of length 1.
+/** Return true if 'c' is punctuation normally found at the end of a
+  * sentence.  When we have to synthesize space between words, rather
+  * than copying it, this will determine whether we insert one space or
+  * two.
+  *
+  * 'c' is supposed to be a string of length 1. */
 function isSentenceEnd(c: string) : boolean
 {
   return c === "." || c === "?" || c === "!";
 }
 
 
-// Given 'originalContent', rearrange its whitespace to obtain a
-// set of lines that have 'desiredWidth' or less.
-//
-// If two adjacent words start on the same line, and are not
-// split across lines, the number of spaces between them shall
-// be preserved.  This provision is based on the idea that the
-// author originally put the number of spaces they want to use,
-// whether or not that matches my preferred convention.
-//
-// However, when we have to synthesize space, we insert two
-// spaces for what appear to be sentence boundaries, reflecting
-// my own typographical preferences.
+/** Given 'originalContent', rearrange its whitespace to obtain a
+  * set of lines that have 'desiredWidth' or less.
+  *
+  * If two adjacent words start on the same line, and are not
+  * split across lines, the number of spaces between them shall
+  * be preserved.  This provision is based on the idea that the
+  * author originally put the number of spaces they want to use,
+  * whether or not that matches my preferred convention.
+  *
+  * However, when we have to synthesize space, we insert two
+  * spaces for what appear to be sentence boundaries, reflecting
+  * my own typographical preferences. */
 export function justifyTextLines(
   originalContent: string[],
   desiredWidth: number) : string[]
