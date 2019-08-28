@@ -43,6 +43,11 @@ Then, in vscode, go to Extensions (Ctrl+Shift+X), click the "..." menu
 item near the top-left, choose "Install from VSIX...", then navigate to
 and choose the .vsix file.
 
+* If you make a change and want to reinstall without changing the version
+  number, you have to uninstall the old version and remove the cached
+  copy in $HOME/.vscode/extensions (substitute %USERPROFILE% for $HOME on
+  Windows) first.
+
 Finally, to use the key bindings I normally use, open
 doc/keybindings.json.fragment and copy+paste that into your vscode
 key bindings JSON file (Settings -> Keyboard Shortcuts -> Open
