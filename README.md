@@ -18,6 +18,8 @@ New commands in the "smcpeak" namespace:
 * justifyParagraph: Fill/justify paragraph of text, comments, etc.
   Similar to
   [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap).
+  I implemented mine mostly to learn how to do it rather than because
+  of any known deficiency in Rewrap (which I have not tried yet).
 
 ## Installation
 
