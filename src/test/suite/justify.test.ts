@@ -12,32 +12,10 @@ import * as mocha from 'mocha';
 
 import * as justify from '../../justify';
 
-
-function print(label: string, arr: string[]) : void
-{
-  console.log(label + " (" + arr.length + "):");
-  for (let i in arr) {
-    console.log("  " + arr[i]);
-  }
-}
-
-
-// Return true if the given arrays consist of the same elements, as
-// determined by triple-equals.
-function equalElements<T>(a1: T[], a2: T[]) : boolean
-{
-  if (a1.length !== a2.length) {
-    return false;
-  }
-
-  for (let i in a1) {
-    if (a1[i] !== a2[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
+import {
+  debugPrintArray,
+  equalElements,
+} from "../../array-utils";
 
 
 function testOneJustifyTextLines(
@@ -49,9 +27,9 @@ function testOneJustifyTextLines(
 
   if (!equalElements(expect, actual)) {
     console.log("desiredWidth: " + desiredWidth);
-    print("original", original);
-    print("expect", expect);
-    print("actual", actual);
+    debugPrintArray("original", original);
+    debugPrintArray("expect", expect);
+    debugPrintArray("actual", actual);
     assert(!"justifyTextLines test failure");
   }
 
@@ -60,8 +38,8 @@ function testOneJustifyTextLines(
 
   if (!equalElements(expect, actual)) {
     console.log("desiredWidth: " + desiredWidth);
-    print("expect", expect);
-    print("actual", actual);
+    debugPrintArray("expect", expect);
+    debugPrintArray("actual", actual);
     assert(!"justifyTextLines idempotence test failure");
   }
 }
