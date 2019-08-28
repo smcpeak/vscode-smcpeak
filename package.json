@@ -14,8 +14,9 @@
   "activationEvents": [
     "onCommand:smcpeak.cursorHome",
     "onCommand:smcpeak.cursorHomeSelect",
-    "onCommand:smcpeak.insertDateTime",
     "onCommand:smcpeak.indentRigidly",
+    "onCommand:smcpeak.insertDateTime",
+    "onCommand:smcpeak.justifyParagraph",
     "onCommand:smcpeak.outdentRigidly"
   ],
   "main": "./out/extension.js",
@@ -30,12 +31,16 @@
         "title": "Cursor and selection to true beginning of line"
       },
       {
+        "command": "smcpeak.indentRigidly",
+        "title": "Indent Selection Rigidly"
+      },
+      {
         "command": "smcpeak.insertDateTime",
         "title": "Insert Date/Time"
       },
       {
-        "command": "smcpeak.indentRigidly",
-        "title": "Indent Selection Rigidly"
+        "command": "smcpeak.justifyParagraph",
+        "title": "Justify Paragraph"
       },
       {
         "command": "smcpeak.outdentRigidly",

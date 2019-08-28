@@ -2,6 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+import {
+  justifyNearLine,
+} from "./justify-editor";
+
 // Return 'n' as a string, padded to two digits.
 // It works for integer 'n' in [0,99].
 function dd(n: number) : string {
@@ -133,6 +137,13 @@ function cursorHome(select: boolean)
   return actualCommand;
 }
 
+function justifyParagraph(textEditor: vscode.TextEditor,
+  editBuilder: vscode.TextEditorEdit) : void
+{
+  let curLine: number = textEditor.selection.active.line;
+  justifyNearLine(textEditor, editBuilder, curLine, 72 /*width*/);
+}
+
 // Register a text editor command.
 function registerTEC(
   context: vscode.ExtensionContext,
@@ -157,6 +168,7 @@ export function activate(context: vscode.ExtensionContext) {
   registerTEC(context, 'smcpeak.insertDateTime', insertDateTime);
   registerTEC(context, 'smcpeak.indentRigidly', indentRigidly);
   registerTEC(context, 'smcpeak.outdentRigidly', outdentRigidly);
+  registerTEC(context, 'smcpeak.justifyParagraph', justifyParagraph);
 }
 
 // this method is called when your extension is deactivated
