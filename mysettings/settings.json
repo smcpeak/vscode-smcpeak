@@ -1,11 +1,48 @@
 {
     "workbench.colorTheme": "Visual Studio Light",
-    "window.zoomLevel": 1,
-    "editor.quickSuggestionsDelay": 99999999,
+    "window.titleBarStyle": "native",
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
-    "editor.suggestOnTriggerCharacters": false,
+    "editor.autoIndent": false,
+    "editor.quickSuggestionsDelay": 999999,
     "editor.tabSize": 2,
-    "update.mode": "none",
-    "javascript.suggestionActions.enabled": false
+    "files.eol": "\n",
+    "trailing-spaces.highlightCurrentLine": false,
+    "scrolloff.scrolloff": 2,
+    "editor.renderWhitespace": "boundary",
+    "editor.renderIndentGuides": false,
+    "editor.autoSurround": "never",
+    "editor.copyWithSyntaxHighlighting": false,
+    "editor.dragAndDrop": false,
+    "editor.folding": false,
+    "editor.renderControlCharacters": true,
+    "editor.rulers": [
+        80
+    ],
+    "editor.useTabStops": false,
+    "editor.cursorBlinking": "solid",
+    "editor.cursorStyle": "block",
+    "editor.minimap.enabled": false,
+    "editor.suggestOnTriggerCharacters": false,
+
+    // Still not sure how this really works...
+    //"editor.tokenColorCustomizations": {
+    //    "keywords": "#FF0000"
+    //},
+    "files.simpleDialog.enable": true,
+    "explorer.enableDragAndDrop": false,
+    "extensions.autoUpdate": false,
+    "update.enableWindowsBackgroundUpdates": false,
+    "git.ignoredRepositories": [
+        "d:\\wrk\\editor"
+    ],
+    "editWithShell.shell.windows": "bash",
+    "editWithShell.shellArgs.windows": [
+        "-c"
+    ],
+    "bookmarks.wrapNavigation": false,
+    "gitlens.advanced.abbreviatedShaLength": 10,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe"
 }
