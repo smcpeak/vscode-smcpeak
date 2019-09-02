@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.7
+
+- Add goToLineMatching and revealCurrentSelection.
+
 ## 0.0.6
 
 - Add justifyParagraph.
