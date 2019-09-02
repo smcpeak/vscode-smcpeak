@@ -1,6 +1,8 @@
 # vscode-smcpeak README
 
-These are my vscode extensions.
+These are my vscode extensions, mostly for my personal use, although
+I've also started citing them in [StackOverflow](https://stackoverflow.com)
+answers.
 
 ## Features
 
@@ -48,13 +50,35 @@ They are also in the "smcpeak" namespace:
 
 ## Installation
 
-My extensions are not in the public extensions repository since they're
-mainly for my personal use.  I suppose if someone wants them I could
-figure out how to get them uploaded.
+My extensions are not in the [extensions marketplace](https://marketplace.visualstudio.com/vscode)
+since they're mainly for my personal use.  I suppose if someone wants
+them I could figure out how to get them uploaded.
 
-Requires [node.js](https://nodejs.org), probably a somewhat recent version,
-although I don't know exactly what.  I've been using 10.16.  It should
-include the "npm" command at least.
+Meanwhile, I'll put VSIX files into the
+[releases](https://github.com/smcpeak/vscode-smcpeak/releases)
+section of the github repo.
+
+* VSIX files are just .zip files with a different extension, so if you
+  want to verify its contents, just rename it to have the ".zip"
+  extension and unpack it.
+
+To install a VSIX file, in vscode, go to Extensions (Ctrl+Shift+X),
+click the "..." menu item near the top-left, choose "Install from
+VSIX...", then navigate to and choose the .vsix file.
+
+Finally, to use the key bindings I normally use, open
+doc/keybindings.json.fragment and copy+paste that into your vscode key
+bindings JSON file (Settings → Keyboard Shortcuts → Open Keyboard
+Shortcuts).  When editing keybindings.json immediately after installing
+the extension, VSCode (version 1.37) will complain that the commands do
+not exist until you restart it, even though the commands in fact start
+working right away.
+
+## Building from source
+
+Compilation requires [node.js](https://nodejs.org), probably a somewhat
+recent version, although I don't know exactly what.  I've been using
+10.16.  It should include the "npm" command at least.
 
 Run:
 
@@ -66,18 +90,9 @@ Run:
 
 That last command creates vscode-smcpeak-$VERSION.vsix.
 
-Then, in vscode, go to Extensions (Ctrl+Shift+X), click the "..." menu
-item near the top-left, choose "Install from VSIX...", then navigate to
-and choose the .vsix file.
+If you change the code and want to reinstall without changing the
+version number, you have to uninstall the old version and remove the
+cached copy in $HOME/.vscode/extensions (substitute %USERPROFILE% for
+$HOME on Windows) first.  Otherwise VSCode will just reinstall the old
+one, even when you select the new VSIX file.
 
-* If you make a change and want to reinstall without changing the version
-  number, you have to uninstall the old version and remove the cached
-  copy in $HOME/.vscode/extensions (substitute %USERPROFILE% for $HOME on
-  Windows) first.
-
-Finally, to use the key bindings I normally use, open
-doc/keybindings.json.fragment and copy+paste that into your vscode
-key bindings JSON file (Settings -> Keyboard Shortcuts -> Open
-Keyboard Shortcuts).  When editing keybindings.json, VSCode
-(version 1.37) will complain that the commands do not exist until you
-restart it, even though the commands in fact start working right away.
