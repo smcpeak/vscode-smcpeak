@@ -4,7 +4,7 @@
   "description": "Scott McPeak VSCode Extensions",
   "repository": "https://github.com/smcpeak/vscode-smcpeak",
   "publisher": "smcpeak",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "engines": {
     "vscode": "^1.36.0"
   },
