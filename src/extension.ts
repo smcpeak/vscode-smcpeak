@@ -147,15 +147,124 @@ function justifyParagraph(textEditor: vscode.TextEditor,
   justifyNearLine(textEditor, editBuilder, curLine, width);
 }
 
+// Scroll to expose the current selection.  This is sometimes useful
+// as part of a macro.
+function revealCurrentSelection() : void
+{
+  let editor = vscode.window.activeTextEditor;
+  if (!editor) {
+    return;
+  }
+
+  editor.revealRange(editor.selection);
+}
+
+// Return a position at the start of 'lineNo'.
+function linePosition(lineNo: number) : vscode.Position
+{
+  return new vscode.Position(lineNo, 0);
+}
+
+// Return a range encompassing 'lineNo'.
+function lineRange(lineNo: number) : vscode.Range
+{
+  return new vscode.Range(linePosition(lineNo), linePosition(lineNo+1));
+}
+
+// function rangeToSelection(range: vscode.Range) : vscode.Selection
+// {
+//   return new vscode.Selection(range.start, range.end);
+// }
+
+// Options for 'goToLineMatching'.
+interface GoToMatchOptions {
+  // Regex to match against complete lines while searching.  This
+  // attribute is required, while all others are optional.
+  regex: string;
+
+  // True to match case-insensitively.
+  caseInsensitive: boolean | undefined;
+
+  // True to move up, whereas the default moves down.
+  moveUp: boolean | undefined;
+
+  // True to allow matching the current line, and hence not moving at
+  // all.
+  allowZeroMove: boolean | undefined;
+
+  // True to leave the anchor where it is, thereby creating or extending
+  // the selection.
+  select: boolean | undefined;
+}
+
+// Move the cursor, and optionally the anchor, to a line that matches a
+// specified regex.
+function goToLineMatching(opts: GoToMatchOptions)
+{
+  let editor = vscode.window.activeTextEditor;
+  if (!editor) {
+    return;
+  }
+
+  // Compile regex.
+  let re: RegExp;
+  try {
+    // There is no point in exposing any flags other than "i" in
+    // this context.
+    re = new RegExp(opts.regex, opts.caseInsensitive? "i" : "");
+  }
+  catch (e) {
+    vscode.window.showErrorMessage(
+      `goDownToLineMatching: invalid regex: ${JSON.stringify(opts.regex)}`);
+    return;
+  }
+
+  // Decide where to start searching.
+  let lineNo: number = editor.selection.active.line;
+  if (!opts.allowZeroMove) {
+    lineNo += (opts.moveUp? -1 : +1);
+  }
+
+  // Scan for a matching line.
+  while (0 <= lineNo && lineNo < editor.document.lineCount) {
+    let text: string = editor.document.getText(lineRange(lineNo));
+    if (text.match(re)) {
+      break;
+    }
+    lineNo += (opts.moveUp? -1 : +1);
+  }
+
+  // If none matched, use the first or last line in the document.
+  if (!( 0 <= lineNo && lineNo < editor.document.lineCount )) {
+    lineNo = (opts.moveUp? 0 : editor.document.lineCount-1);
+  }
+
+  // Move cursor and possibly anchor to start of 'lineNo'.
+  let pos = linePosition(lineNo);
+  editor.selection = new vscode.Selection(
+    (opts.select? editor.selection.anchor: pos),
+    pos);
+}
+
 // Register a text editor command.
 function registerTEC(
   context: vscode.ExtensionContext,
   command: string,
   callback: (textEditor: vscode.TextEditor,
-             edit: vscode.TextEditorEdit, ...args: any[]) => void)
+             edit: vscode.TextEditorEdit, ...args: any[]) => void) : void
 {
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand(command, callback));
+}
+
+// Register a normal command.
+function registerCmd(
+  context: vscode.ExtensionContext,
+  command: string,
+  callback: (...args: any[]) => any) : void
+{
+  context.subscriptions.push(
+    vscode.commands.registerCommand(command, callback));
 }
 
 // this method is called when your extension is activated
@@ -172,6 +281,9 @@ export function activate(context: vscode.ExtensionContext) {
   registerTEC(context, 'smcpeak.indentRigidly', indentRigidly);
   registerTEC(context, 'smcpeak.outdentRigidly', outdentRigidly);
   registerTEC(context, 'smcpeak.justifyParagraph', justifyParagraph);
+
+  registerCmd(context, "smcpeak.goToLineMatching", goToLineMatching);
+  registerCmd(context, "smcpeak.revealCurrentSelection", revealCurrentSelection);
 }
 
 // this method is called when your extension is deactivated

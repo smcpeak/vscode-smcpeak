@@ -4,7 +4,7 @@ These are my vscode extensions.
 
 ## Features
 
-New commands in the "smcpeak" namespace:
+New commands accessible in the Command Palette in the "smcpeak" namespace:
 
 * insertDateTime: Insert date/time as YYYY-MM-DD HH:SS into editor.
 
@@ -20,6 +20,31 @@ New commands in the "smcpeak" namespace:
   [Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap).
   I implemented mine mostly to learn how to do it rather than because
   of any known deficiency in Rewrap (which I have not tried yet).
+
+New commands *not* accessible in the palette, but rather meant to be used from
+[macros](https://marketplace.visualstudio.com/items?itemName=geddski.macros).
+They are also in the "smcpeak" namespace:
+
+* goToLineMatching: Move the cursor, and possibly the anchor, to a line
+  that matches a specified regex.  The argument object has the following
+  properties:
+
+  - regex (string): Regex to match against complete lines while searching.
+    This attribute is required, while all others are optional.
+
+  - caseInsensitive (boolean): True to match case-insensitively.
+
+  - moveUp (boolean): True to move up, whereas the default moves down.
+
+  - allowZeroMove (boolean): True to allow matching the current line,
+    and hence not moving at all.
+
+  - select (boolean): True to leave the anchor where it is, thereby
+    creating or extending the selection.  Otherwise, anchor is moved
+    to cursor, resulting in nothing being selected.
+
+* revealCurrentSelection: Scroll the active editor window so its selection
+  is visible.
 
 ## Installation
 

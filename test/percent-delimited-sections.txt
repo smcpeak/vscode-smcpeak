@@ -1,0 +1,16 @@
+https://stackoverflow.com/questions/57749780/is-there-a-way-to-select-code-between-certain-characters
+
+%% section 1
+x = 0:0.01:pi;
+y = sin(y);
+plot(x,y);
+
+%% section 2
+x = 0:0.01:pi;
+y = cos(y);
+plot(x,y);
+
+%% section 3
+x = 0:0.01:pi;
+y = tan(y);
+plot(x,y);
