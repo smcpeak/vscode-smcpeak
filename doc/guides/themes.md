@@ -37,19 +37,18 @@ The minimal `mytheme-color-theme.json` is:
 
 ```
 {
-	"$schema": "vscode://schemas/color-theme",
-	"name": "mytheme",
-  "colors": {
-	},
-	"tokenColors": [
-	]
+    "$schema": "vscode://schemas/color-theme",
+    "name": "mytheme",
+    "colors": {
+    },
+    "tokenColors": [
+    ]
 }
-
 ```
 
-With just these two files, the theme can be tested by pressing F5.
-Further changes to the theme JSON file will be reflected in the debuggee
-VSCode as soon as the file is saved.
+With just these two files, the theme can be tested with menu item Debug
+→ Start Debugging (F5).  Further changes to the theme JSON file will be
+reflected in the debuggee VSCode as soon as the file is saved.
 
 This minimal theme has no color specifications at all.  Consequently, it
 uses the defaults for either the light or dark theme classes, depending
@@ -84,7 +83,13 @@ text editor text appearance through its `editor.foreground` and
 a `tokenColors` specification gets the default colors.
 
 The [reference page](https://code.visualstudio.com/api/references/theme-color)
-describes the many available colors adequately.
+describes the many available colors adequately, and the process of
+changing them is fairly straightforward.
+
+One hint though: when you change `editor.background`, the background of
+the row of tabs along the top, as well as the breadcrumbs below it, also
+change.  Thus, if you change the background color, you probably also
+want to set `tab.activeBackground` and `breadcrumb.background`.
 
 ## Editing the tokenColors array
 
@@ -116,13 +121,16 @@ For the chosen character ("n" in the screenshot), these are all of the
 *scope names* that have been applied to it, from innermost (top) to
 outermost (bottom) nesting.  Each scope name is a dotted sequence of
 words that describe the token the character is in, from least specific
-(left) to most specific (right), except that the final word indicates
-the source code language (here "cpp", meaning C++).
+(left) to most specific (right).  The final word indicates the source
+code language (here "cpp", meaning C++), which seems *less* specific
+than earlier words when thinking about just one language, but from the
+perspective of a multi-language text editor, it acts like a further
+increase in specificity.
 
 The `scope` attribute is either a string or an array of strings.  When a
-single string, it is a *scope selector*.  A scope selector 'sel'
-*matches* a scope name 'n' if and only if 'sel' is a *prefix* of (or
-equal to) 'n', when both are treated as a sequence of dot-separated
+single string, it is a *scope selector*.  A scope selector
+*matches* a scope name if and only if the selector is a *prefix* of (or
+equal to) the name, when both are treated as a sequence of dot-separated
 words.  If two scope selectors both match the same scope name, the
 selector that matches more of that name takes precedence.  If two
 elements both have scope selectors that match a scope name associated
@@ -137,12 +145,24 @@ In our example of the `include` token, we have:
 * "meta" takes precedence over "source.cpp" (matches inner scope)
 * "key" does not match (not a complete word)
 * "cpp" does not match (not a prefix of a scope name)
-* "keyword.control.directive.include.cpp" is the best possible selector
+* "keyword.control.directive.include.cpp" is the highest precedence
+  selector without any descendant selector (discussed next)
+
+Furthermore, a scope selector can contain multiple space-separated
+dotted word sequences, for example "meta.preprocessor keyword.control".
+These are *descendant selectors*; the example applies to "keyword.control"
+when it appears inside "meta.preprocessor".  The precedence rules for
+descendant selectors are
+[described in the TextMate manual](https://macromates.com/manual/en/scope_selectors#ranking_matches),
+but VSCode does not seem to implement them correctly (in particular,
+resolution of "a c" versus "b c" does not seem to work).
 
 If two `tokenColors` elements specify exactly the same `scope`, then the
 one that appears *last* in the JSON file takes effect, while the others
-are ignored.  (It is unclear if that is by design, but I suspect it is, in
-order to allow a file to `include` another and then override it.)
+are ignored.  (I believe this is done in order to allow a file to
+`include` another and then override it.)
+TODO: This is not right.  Multiple elements can match and contribute
+different elements of the appearance, namely `fontStyle` and `color`.
 
 If no element matches a given character's scope names, that character is
 assigned the default text color and no font style.
@@ -150,6 +170,12 @@ assigned the default text color and no font style.
 If `scope` is an array, it is equivalent to a sequence of elements that
 all have the same `settings` and one each of the `scope` array elements,
 in turn.
+
+(Disclaimer: The preceding specification was determined through
+experimentation, as I could not find an authoritative reference for the
+semantics of `tokenColors` in VSCode, which behaves differently from
+[TextMate](https://macromates.com/manual/en/scope_selectors).  It may be
+inaccurate or incomplete.)
 
 Note that a theme's color definitions are applied to all languages; each
 language definition classifies text into scopes as it sees fit, but the
@@ -160,16 +186,35 @@ theme must then map *all* scopes to colors.
 The `settings` attribute is an object with the following available
 attributes:
 
-* `foreground`: Text color in "#RRGGBBAA" format.
+* `foreground`: Text color in one of these formats: "#RGB", "#RGBA",
+  "#RRGGBB", or "#RRGGBBAA".
 * `background`: **Not implemented**, as of VSCode 1.37.1.
 * `fontStyle`: Font style, from among "italic", "bold", "underline", or a
   space-separated set of those.
 
+These styles are applied to characters for which the associated
+`tokenColors` element has the highest precedence.
+
+## Decorations
+
+Completely independent of the TextMate scopes,
+[decorations](https://code.visualstudio.com/api/references/vscode-api#window.createTextEditorDecorationType)
+can be applied to text by an extension.  These optionally override
+the TextMate scope styles and have additional styling capabilities
+such as changing the background color, drawing a border, changing
+the font size, and others.  This guide is not about decorations,
+but one should be aware of their existence.  This
+[Stack Overflow answer](https://stackoverflow.com/a/57722269/2659307)
+explains how to identify when a decoration is present.
+
 ## References
 
-The [TextMate Language Grammars Manual](https://macromates.com/manual/en/language_grammars)
-explains scope names and scope selectors.  It also explains the TextMate
-grammar that assigns scope names to text, but that is not used in a theme.
+[Theme colors](https://code.visualstudio.com/api/references/theme-color)
+
+The [TextMate Language Scope Selectors Manual](https://macromates.com/manual/en/scope_selectors)
+explains scope names and scope selectors.  However, VSCode does not
+implement everything described; in particular, "Excluding Elements"
+does not work in VSCode.
 
 The [VSCode theme tutorial](https://code.visualstudio.com/api/extension-guides/color-theme)
 is pretty short.  It also misleadingly suggests that there is a `type`
