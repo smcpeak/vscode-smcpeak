@@ -19,7 +19,8 @@
     "onCommand:smcpeak.justifyParagraph",
     "onCommand:smcpeak.outdentRigidly",
     "onCommand:smcpeak.goToLineMatching",
-    "onCommand:smcpeak.revealCurrentSelection"
+    "onCommand:smcpeak.revealCurrentSelection",
+    "onCommand:smcpeak.testHTTPRequest"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -47,6 +48,10 @@
       {
         "command": "smcpeak.outdentRigidly",
         "title": "Outdent Selection Rigidly"
+      },
+      {
+        "command": "smcpeak.testHTTPRequest",
+        "title": "Test HTTP Request"
       }
     ],
     "configuration": {

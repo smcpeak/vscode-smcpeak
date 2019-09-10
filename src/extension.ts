@@ -2,6 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+import * as http from 'http';
+
 import {
   justifyNearLine,
 } from "./justify-editor";
@@ -246,6 +248,32 @@ function goToLineMatching(opts: GoToMatchOptions)
     pos);
 }
 
+// Simple test of whether an extension can make arbitrary network requests.
+// https://stackoverflow.com/questions/57874263/how-to-disable-internet-access-for-a-particular-vscode-extension-you-dont-trust
+function testHTTPRequest() : void
+{
+  let opts : http.RequestOptions = {
+    'host': 'localhost',
+    'port': 8080,
+    'path': '/'
+  };
+  console.log("Issuing request with opts: " + JSON.stringify(opts));
+  http.get(opts, (res: http.IncomingMessage) : void => {
+    console.log("res code: " + res.statusCode);
+
+    let data = "";
+    res.on("data", (chunk: string) : void => {
+      data += chunk;
+    });
+    res.on("end", () : void => {
+      console.log("res data: " + data);
+    });
+    res.on("error", (err) : void => {
+      console.log("res error: " + err);
+    });
+  });
+}
+
 // Register a text editor command.
 function registerTEC(
   context: vscode.ExtensionContext,
@@ -284,6 +312,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   registerCmd(context, "smcpeak.goToLineMatching", goToLineMatching);
   registerCmd(context, "smcpeak.revealCurrentSelection", revealCurrentSelection);
+
+  registerCmd(context, "smcpeak.testHTTPRequest", testHTTPRequest);
 }
 
 // this method is called when your extension is deactivated
